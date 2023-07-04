@@ -101,5 +101,8 @@ export class TripDetailComponent implements OnInit{
       });
     }
   }
-
+  volverAtras() {
+    // this._location.back();
+    this.router.navigate(['trips','list'])
+  }
 }

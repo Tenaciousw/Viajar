@@ -40,6 +40,17 @@ export class TripService {
       }),
     );
   }
+
+  borrar(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete<any>( this.resourceUrl + '/' + id, {observe: "response"}).pipe(
+      catchError(err => {
+        console.log("Ocurrio un error: ");
+        console.log(err);
+        return throwError(() => "No existe el viaje");
+      }),
+    );
+  }
+
 }
 
 export interface TripDTO {
