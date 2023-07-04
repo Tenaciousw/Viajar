@@ -48,11 +48,11 @@ export class TripListComponent implements OnInit {
   borrarViaje(trip: Trip) {
     this.tripService.borrar(trip.id).subscribe(res => {
       this.matSnackBar.open("Se borro correctamente el viaje", "Cerrar");
-      this.loadColectivo(trip);
-    }, error => {
+      this.ngOnInit();
+          }, error => {
       console.log(error);
       this.matSnackBar.open(error, "Cerrar");
     });
-  }
+      }
   
 }
