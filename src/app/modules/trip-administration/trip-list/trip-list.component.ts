@@ -45,6 +45,10 @@ export class TripListComponent implements OnInit {
     this.router.navigate(['trips','create'])
   }
 
+  editarViaje(trip) {
+    this.router.navigate(['trips','detail','detail'])
+  }
+  
   borrarViaje(trip: Trip) {
     this.tripService.borrar(trip.id).subscribe(res => {
       this.matSnackBar.open("Se borro correctamente el viaje", "Cerrar");
