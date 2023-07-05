@@ -6,12 +6,12 @@ import { FormBuilder, Validators } from '@angular/forms';
   templateUrl: './buses-detail.component.html',
   styleUrls: ['./buses-detail.component.css']
 })
-export class BusesDetailComponent implements OnInit {
+export class BusesDetailComponent implements OnInit{
 
-  busform = this.formBuilder.group({
+  busform = this.formBuilder.group( {
     patente: ['', Validators.required],
     cantidadAsientos: ['', Validators.required, Validators.min(0), Validators.max(50)],
-    modeloid: ['', Validators.required, Validators.min(0), Validators.max(50)]
+    Modeloid: ['', Validators.required, Validators.min(0), Validators.max(50)]
   })
       
   constructor(private formBuilder: FormBuilder) {

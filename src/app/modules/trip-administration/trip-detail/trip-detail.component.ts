@@ -93,6 +93,7 @@ export class TripDetailComponent implements OnInit{
     const pasajeros: number[] = this.tripForm.get('pasajeros').value;
 
     const body: TripDTO = {
+      id:null,
       lugarSalida: this.tripForm.get('origen').value,
       lugarDestino: this.tripForm.get('destino').value,
       fechaLlegada: this.tripForm.get('fechaLlegada').value,
