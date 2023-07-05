@@ -9,7 +9,7 @@ import {Model} from "../../../models/model";
 import {PersonDTO, PersonService} from "../../../services/person.service";
 import {TripDTO, TripService} from "../../../services/trip.service";
 import {Trip} from "../../../models/trip";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-trip-detail',
@@ -24,7 +24,7 @@ export class TripDetailComponent implements OnInit{
     fechaSalida: [new Date(), Validators.required],
     fechaLlegada: [new Date(), Validators.required],
     colectivo: [0, Validators.required],
-    pasajeros: [[], Validators.required]
+    pasajeros: [[0], Validators.required]
   })
 
   busList: Bus[] = [];
@@ -38,6 +38,7 @@ export class TripDetailComponent implements OnInit{
               private personService: PersonService,
               private tripService: TripService,
               private router: Router,
+              private route: ActivatedRoute,
               private matSnackBar: MatSnackBar) {
   }
 
@@ -57,7 +58,30 @@ export class TripDetailComponent implements OnInit{
     this.personService.findAll().subscribe(res => {
       this.personList = res.body.map(json => new Person(json.id, json.age, json.name, json.lastName));
     })
+
+    this.route.paramMap.subscribe(params => {
+      const id = params.get("id")
+      console.log("El id que estoy editando es: " + id);
+      if (id) {
+        // @ts-ignore
+        this.findTrip(Number(id));
+      }
+    });
   }
+    findTrip(id: number) {
+      this.tripService.findOne(id).subscribe( res =>{
+        this.selectedTrip = res;
+        this.tripForm.patchValue( {
+          origen : res.lugarSalida,
+    destino : res.lugarDestino,
+    fechaSalida : new Date(res.fechaSalida),
+    fechaLlegada : new Date(res.fechaLlegada),
+    colectivo : res.idColectivo,
+    pasajeros : res.personaId
+        }
+        )
+      })
+    }
 
   findModeloColectivo(colectivo: Bus) {
     this.modeloService.findOne(colectivo.modeloId).subscribe(res => {

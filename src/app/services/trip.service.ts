@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
+import { Trip } from '../models/trip';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,14 @@ export class TripService {
       })
     );
   }
-
+  findOne(id: number): Observable<Trip> {
+    return this.http.get<Trip>(this.resourceUrl + '/' + id).pipe(
+      catchError(err => {
+        console.log(err.message);
+        return throwError(() => 'Ocurrio un error');
+      })
+    );
+  }
   crearViaje(trip: TripDTO): Observable<any> {
     return this.http.post<any>(this.resourceUrl, trip).pipe(
       catchError(err => {

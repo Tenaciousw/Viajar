@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Trip } from "../../../models/trip";
 import { TripService } from "../../../services/trip.service";
-import { ModeloService } from "../../../services/modelo.service";
 import { BusService } from "../../../services/bus.service";
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { window } from 'rxjs';
 
 @Component({
   selector: 'app-trip.ts-list',
@@ -45,8 +43,8 @@ export class TripListComponent implements OnInit {
     this.router.navigate(['trips','create'])
   }
 
-  editarViaje(trip) {
-    this.router.navigate(['trips','detail','detail'])
+  editarViaje(trip: Trip) {
+    this.router.navigate(['trips','detail',trip.id]);
   }
   
   borrarViaje(trip: Trip) {

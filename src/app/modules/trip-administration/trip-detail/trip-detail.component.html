@@ -84,7 +84,7 @@
           <mat-select formControlName="colectivo">
             <mat-option disabled> -- </mat-option>
             <mat-option *ngFor="let bus of busList" [value]="bus.id">
-              {{bus.patente}} - {{bus.cantidadAsientos}} - {{bus.modelo.marca}}
+              {{bus.patente}} - {{bus.cantidadAsientos}} - {{bus.modelo?.marca}}
             </mat-option>
           </mat-select>
 
