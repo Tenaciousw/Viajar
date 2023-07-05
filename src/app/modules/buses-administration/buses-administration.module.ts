@@ -7,6 +7,7 @@ import { BusesDetailComponent } from './buses-detail/buses-detail.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatIconModule,
     BusesAdministrationRoutingModule,
+    ReactiveFormsModule
     
   ]
 })
