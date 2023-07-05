@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { TripAdministrationRoutingModule } from './trip-administration-routing.module';
-import { TripListComponent } from './trip-list/trip-list.component';
+import {NgModule } from '@angular/core';
+import {CommonModule } from '@angular/common';
+import {TripAdministrationRoutingModule } from './trip-administration-routing.module';
+import {TripListComponent } from './trip-list/trip-list.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
-import { TripDetailComponent } from './trip-detail/trip-detail.component';
+import {TripDetailComponent } from './trip-detail/trip-detail.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+import { Bus } from 'src/app/models/bus';
+
 
 @Component({
   selector: 'app-buses-list',
@@ -6,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./buses-list.component.css']
 })
 export class BusesListComponent {
+  dataSource: any
+  displayedColumns = ['Id', 'Patente', 'Cantidad de Asientos', 'Modelo'];
+  ;
 
 }
