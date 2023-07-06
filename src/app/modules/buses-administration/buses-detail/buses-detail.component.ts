@@ -54,6 +54,27 @@ export class BusesDetailComponent implements OnInit {
       return;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     const busDTO: BusDTO = {
       id: this.busId || 0,
       patente: this.busform.get('patente')?.value,
