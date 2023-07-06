@@ -2,20 +2,20 @@
   
   <a routerLink="/person/list">
     <mat-list-item>
-     <mat-icon mat-list-icon>person</mat-icon>
-      <h4 *ngIf="isExpanded">Personas</h4>
+     <mat-icon>person</mat-icon>
+      <b *ngIf="isExpanded">Personas</b>
     </mat-list-item>
     </a> 
   <mat-list-item>
     <a routerLink="/buses/list">
-      <mat-icon mat-list-icon>directions_bus</mat-icon>
-      <h4 *ngIf="isExpanded">Colectivos</h4>
+      <mat-icon>directions_bus</mat-icon>
+       <b *ngIf="isExpanded">Colectivos</b>
     </a>
   </mat-list-item>
   <mat-list-item>
     <a routerLink="/trips/list">
-      <mat-icon mat-list-icon>moving</mat-icon>
-      <h4 *ngIf="isExpanded">Viajes</h4>
+      <mat-icon>moving</mat-icon>
+      <b *ngIf="isExpanded">Viajes</b>
     </a>
   </mat-list-item>
 </mat-nav-list>

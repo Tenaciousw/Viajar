@@ -14,7 +14,11 @@
     align-items: center;
   }
   
-  .app-admin-sidebar > * {
+  .app-admin-sidebar * {
     margin-left: 10px;
   }
-  
+ 
+  div {
+    position: flex;
+
+  }
