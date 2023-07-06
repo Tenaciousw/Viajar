@@ -10,14 +10,12 @@ import { PersonDTO, PersonService } from "../../../services/person.service";
 import { TripDTO, TripService } from "../../../services/trip.service";
 import { Trip } from "../../../models/trip";
 import { ActivatedRoute, Router } from "@angular/router";
-
 @Component({
   selector: 'app-trip-detail',
   templateUrl: './trip-detail.component.html',
   styleUrls: ['./trip-detail.component.css']
 })
 export class TripDetailComponent implements OnInit {
-
   tripForm = this.formBuilder.group({
     origen: ['', Validators.required],
     destino: ['', Validators.required],
@@ -26,12 +24,9 @@ export class TripDetailComponent implements OnInit {
     colectivo: [0, Validators.required],
     pasajeros: [[0], Validators.required]
   })
-
   busList: Bus[] = [];
   personList: Person[] = [];
-
   selectedTrip: Trip | null = null;;
-
   constructor(private formBuilder: FormBuilder,
     private busService: BusService,
     private modeloService: ModeloService,
@@ -41,7 +36,6 @@ export class TripDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private matSnackBar: MatSnackBar) {
   }
-
   ngOnInit() {
     this.busService.findAll().subscribe(res => {
       this.busList = res.body.map(json => {
@@ -54,11 +48,9 @@ export class TripDetailComponent implements OnInit {
         console.log(error);
         this.matSnackBar.open(error, "cerrar")
       })
-
     this.personService.findAll().subscribe(res => {
       this.personList = res.body.map(json => new Person(json.id, json.age, json.name, json.lastName));
     })
-
     this.route.paramMap.subscribe(params => {
       const id = params.get("id")
       console.log("El id que estoy editando es: " + id);
@@ -68,7 +60,6 @@ export class TripDetailComponent implements OnInit {
       }
     });
   }
-
   findTrip(id: number) {
     this.tripService.findOne(id).subscribe(res => {
       this.selectedTrip = res;
@@ -82,17 +73,13 @@ export class TripDetailComponent implements OnInit {
       })
     })
   }
-
   findModeloColectivo(colectivo: Bus) {
     this.modeloService.findOne(colectivo.modeloId).subscribe(res => {
       colectivo.modelo = new Model(res.id, res.nombre, res.marca);
     })
   }
-
-
   guardarCambios() {
     const pasajeros: number[] = this.tripForm.get('pasajeros').value;
-
     const body: TripDTO = {
       id: null,
       lugarSalida: this.tripForm.get('origen').value,
@@ -102,13 +89,9 @@ export class TripDetailComponent implements OnInit {
       personaId: pasajeros,
       idColectivo: this.tripForm.get('colectivo').value,
     }
-
     if (this.selectedTrip && this.selectedTrip.id) {
-      // LLamar al metodo actualizar
       console.log("Actualizando un viaje");
-
       body.id = this.selectedTrip.id;
-
       this.tripService.actualizarViaje(body).subscribe(res => {
         this.matSnackBar.open("Se guardaron los cambios de la persona", "Cerrar");
         this.router.navigate(['trips', 'list']);
@@ -128,7 +111,6 @@ export class TripDetailComponent implements OnInit {
     }
   }
   volverAtras() {
-    // this._location.back();
     this.router.navigate(['trips', 'list'])
   }
 }
