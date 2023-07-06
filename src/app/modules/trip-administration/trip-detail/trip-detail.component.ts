@@ -1,22 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {BusService} from "../../../services/bus.service";
-import {Bus} from "../../../models/bus";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Person} from "../../../models/person";
-import {ModeloService} from "../../../services/modelo.service";
-import {Model} from "../../../models/model";
-import {PersonDTO, PersonService} from "../../../services/person.service";
-import {TripDTO, TripService} from "../../../services/trip.service";
-import {Trip} from "../../../models/trip";
-import {ActivatedRoute, Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from "@angular/forms";
+import { BusService } from "../../../services/bus.service";
+import { Bus } from "../../../models/bus";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Person } from "../../../models/person";
+import { ModeloService } from "../../../services/modelo.service";
+import { Model } from "../../../models/model";
+import { PersonDTO, PersonService } from "../../../services/person.service";
+import { TripDTO, TripService } from "../../../services/trip.service";
+import { Trip } from "../../../models/trip";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-trip-detail',
   templateUrl: './trip-detail.component.html',
   styleUrls: ['./trip-detail.component.css']
 })
-export class TripDetailComponent implements OnInit{
+export class TripDetailComponent implements OnInit {
 
   tripForm = this.formBuilder.group({
     origen: ['', Validators.required],
@@ -30,16 +30,16 @@ export class TripDetailComponent implements OnInit{
   busList: Bus[] = [];
   personList: Person[] = [];
 
-  selectedTrip: Trip;
+  selectedTrip: Trip | null = null;;
 
   constructor(private formBuilder: FormBuilder,
-              private busService: BusService,
-              private modeloService: ModeloService,
-              private personService: PersonService,
-              private tripService: TripService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private matSnackBar: MatSnackBar) {
+    private busService: BusService,
+    private modeloService: ModeloService,
+    private personService: PersonService,
+    private tripService: TripService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private matSnackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -68,20 +68,20 @@ export class TripDetailComponent implements OnInit{
       }
     });
   }
-    findTrip(id: number) {
-      this.tripService.findOne(id).subscribe( res =>{
-        this.selectedTrip = res;
-        this.tripForm.patchValue( {
-          origen : res.lugarSalida,
-    destino : res.lugarDestino,
-    fechaSalida : new Date(res.fechaSalida),
-    fechaLlegada : new Date(res.fechaLlegada),
-    colectivo : res.idColectivo,
-    pasajeros : res.personaId
-        }
-        )
+
+  findTrip(id: number) {
+    this.tripService.findOne(id).subscribe(res => {
+      this.selectedTrip = res;
+      this.tripForm.patchValue({
+        origen: res.lugarSalida,
+        destino: res.lugarDestino,
+        fechaSalida: new Date(res.fechaSalida),
+        fechaLlegada: new Date(res.fechaLlegada),
+        colectivo: res.idColectivo,
+        pasajeros: res.personaId
       })
-    }
+    })
+  }
 
   findModeloColectivo(colectivo: Bus) {
     this.modeloService.findOne(colectivo.modeloId).subscribe(res => {
@@ -89,11 +89,12 @@ export class TripDetailComponent implements OnInit{
     })
   }
 
+
   guardarCambios() {
     const pasajeros: number[] = this.tripForm.get('pasajeros').value;
 
     const body: TripDTO = {
-      id:null,
+      id: null,
       lugarSalida: this.tripForm.get('origen').value,
       lugarDestino: this.tripForm.get('destino').value,
       fechaLlegada: this.tripForm.get('fechaLlegada').value,
@@ -104,7 +105,7 @@ export class TripDetailComponent implements OnInit{
 
     if (this.selectedTrip && this.selectedTrip.id) {
       // LLamar al metodo actualizar
-      console.log("Actualizando una persona");
+      console.log("Actualizando un viaje");
 
       body.id = this.selectedTrip.id;
 
@@ -128,6 +129,6 @@ export class TripDetailComponent implements OnInit{
   }
   volverAtras() {
     // this._location.back();
-    this.router.navigate(['trips','list'])
+    this.router.navigate(['trips', 'list'])
   }
 }
