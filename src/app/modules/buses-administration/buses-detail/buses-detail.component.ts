@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BusDTO, BusService } from 'src/app/services/bus.service';
 import { ModeloService } from 'src/app/services/modelo.service';
 
@@ -15,34 +15,29 @@ export class BusesDetailComponent implements OnInit {
   busform = this.formBuilder.group({
     patente: ['', Validators.required],
     cantidadAsientos: [0, [Validators.required, Validators.min(0), Validators.max(50)]],
-    modeloId: [0, [Validators.required, Validators.min(0), Validators.max(50)]]
+    modeloId: [0, [Validators.required, Validators.min(0)]]
   })
 
-  busId: number | null = null;
+  @Input() busId: number = 0;
 
   constructor(private formBuilder: FormBuilder,
     private busService: BusService,
     private modeloService: ModeloService,
     private router: Router,
-    private route: ActivatedRoute,
     private matSnackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get("id");
-      if (id) {
-        this.busId = Number(id);
-        this.findBus(this.busId);
-      }
-    });
+    if (this.busId) {
+      this.findBus(this.busId);
+    }
   }
 
   findBus(id: number) {
     this.busService.findOne(id).subscribe(res => {
       if (res) {
         const bus = res;
-        this.busform.patchValue({
+        this.busform.setValue({
           patente: bus.patente,
           cantidadAsientos: bus.cantidadAsientos,
           modeloId: bus.modeloId
@@ -60,10 +55,10 @@ export class BusesDetailComponent implements OnInit {
     }
 
     const busDTO: BusDTO = {
-      id: this.busId,
-      patente: this.busform.get('patente').value,
-      cantidadAsientos: this.busform.get('cantidadAsientos').value,
-      modeloId: this.busform.get('modeloId').value
+      id: this.busId || 0,
+      patente: this.busform.get('patente')?.value,
+      cantidadAsientos: this.busform.get('cantidadAsientos')?.value,
+      modeloId: this.busform.get('modeloId')?.value
     };
 
     if (this.busId) {

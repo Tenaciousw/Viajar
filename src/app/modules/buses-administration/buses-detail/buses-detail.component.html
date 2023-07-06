@@ -1,62 +1,51 @@
 <mat-card>
-   
+  <mat-card-header>
+    <button type="button" class="go-back-button" mat-icon-button color="primary" (click)="volverAtras()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
     <mat-card-title style="padding: 15px">
-        Creacion/Edicion de un colectivo
+      Creacion/Edicion de un colectivo
     </mat-card-title>
-   
+  </mat-card-header>
 
-    <mat-card-content>
-        <form [formGroup]="busform" style="display: flex; gap: 10px">
-          
-          <mat-form-field>
-          <div style="display:flex; gap: 10px; margin-bottom: 10px" > 
-            <mat-label>Patente:</mat-label>
-            <input matInput type="text" formControlName="patente">
-  
-            <div *ngIf="busform.controls['patente'].invalid &&
+  <mat-card-content>
+    <form [formGroup]="busform" style="display:flex; gap:10px" (ngSubmit)="guardarCambios()">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Patente:</mat-label>
+        <input matInput type="text" formControlName="patente" required>
+
+        <mat-error *ngIf="busform.controls['patente'].invalid &&
          (busform.controls['patente'].dirty || busform.controls['patente'].touched)">
-              <mat-hint *ngIf="busform.controls['patente'].errors['required']"
-                        style="color: red">
-               Por favor, complete el campo
-              </mat-hint>
-  
-            </div>
-          </div>
-          </mat-form-field>
+          Por favor, complete el campo
+        </mat-error>
 
-          <mat-form-field>
-            <div style="display:flex; gap: 10px; margin-bottom: 10px" > 
-              <mat-label>Cantidad de Asientos:</mat-label>
-              <input matInput type="number" formControlName="cantidadAsientos">
-    
-              <div *ngIf="busform.controls['cantidadAsientos'].invalid &&
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad de Asientos:</mat-label>
+        <input matInput type="number" formControlName="cantidadAsientos" required>
+
+        <mat-error *ngIf="busform.controls['cantidadAsientos'].invalid &&
            (busform.controls['cantidadAsientos'].dirty || busform.controls['cantidadAsientos'].touched)">
-                <mat-hint *ngIf="busform.controls['cantidadAsientos'].errors['required']"
-                          style="color: red">
-                 Por favor, complete el campo
-                </mat-hint>
-    
-              </div>
-            </div>
-            </mat-form-field>
+          Por favor, complete el campo
+        </mat-error>
 
-            <mat-form-field>
-              <div style="display:flex; gap: 10px; margin-bottom: 10px" > 
-                <mat-label>Modelo: </mat-label>
-                <input matInput type="text" formControlName="modeloId">
-      
-                <div *ngIf="busform.controls['modeloId'].invalid &&
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Modelo: </mat-label>
+        <input matInput type="number" formControlName="modeloId" required>
+
+        <mat-error *ngIf="busform.controls['modeloId'].invalid &&
              (busform.controls['modeloId'].dirty || busform.controls['modeloId'].touched)">
-                  <mat-hint *ngIf="busform.controls['modeloId'].errors['required']"
-                            style="color: red">
-                   Por favor, complete el campo
-                  </mat-hint>
-      
-                </div>
-              </div>
-              </mat-form-field>
+          Por favor, complete el campo
+        </mat-error>
 
-        </form>
-    </mat-card-content>
-    <form></form>
+      </mat-form-field>
+      <button type="submit" style="float: right" mat-button [disabled]="busform .invalid">
+        Guardar
+      </button>
+    </form>
+  </mat-card-content>
 </mat-card>
