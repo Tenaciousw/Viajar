@@ -1,16 +1,14 @@
-<section class="bus-list">
-  <button mat-icon-button (click)="crearBus()">
-    <mat-icon alt="Agregar bus">add</mat-icon>
-  </button>
+<button mat-icon-button (click)="crearBus()">
+  <mat-icon>add</mat-icon>
+</button>
 
-  <article *ngFor="let bus of busList" class="bus-container">
-    <div class="container">
-      <span>No. Id: {{bus.id}}</span>
-      <span>Patente: {{bus.patente}}</span>
-      <span>Cantidad de Asientos: {{bus.cantidadAsientos}}</span>
-      <span>Modelo: {{bus.modeloId}}</span>
-    </div>
-    <button mat-raised-button (click)="editarBus(bus)">Edit</button>
-    <button mat-raised-button (click)="borrarBus(bus)">Delete</button>
-  </article>
-</section>
+<div *ngFor="let bus of busList" class="bus-container">
+  <div class="container">
+    <span>No. Id: {{bus.id}}</span>
+    <span>Patente: {{bus.patente}}</span>
+    <span>Cantidad de Asientos: {{bus.cantidadAsientos}}</span>
+    <span>Modelo:  {{bus.modeloId}}</span>
+  </div>
+  <button mat-raised-button (click)="editarBus(bus)">Edit</button>
+  <button mat-raised-button (click)="borrarBus(bus)">Delete</button>
+</div>
