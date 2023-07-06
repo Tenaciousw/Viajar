@@ -39,8 +39,8 @@ export class TripService {
     );
   }
 
-  actualizarViaje(trip: TripDTO) {
-    return this.http.put<any>(this.resourceUrl, trip).pipe(
+  actualizarViaje(trip: TripDTO): Observable<any> {
+    return this.http.put<any>(this.resourceUrl + '/' + trip.id, trip).pipe(
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);
